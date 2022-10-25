@@ -19,3 +19,8 @@ n.b. If the first or last character is whitespace then we can ignore it.
 * codePointsToHelloWorldHowAreYou() -> is just a test to make sure we translate a bunch of codes to an expected message. 
 The test is currently failing, we'd like you to fix the implementation to make it pass.
 
+Things you will need:
+* Java 17
+* Maven
+* Possibly an IDE!
+
