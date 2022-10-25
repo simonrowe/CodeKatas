@@ -16,46 +16,30 @@
 
 package bnymellon.codekatas.codepointkata;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.List;
 import org.eclipse.collections.api.bag.primitive.CharBag;
 import org.eclipse.collections.api.bag.primitive.MutableCharBag;
-import org.eclipse.collections.api.list.ImmutableList;
 import org.eclipse.collections.impl.factory.primitive.CharBags;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class CodePointKataTest
-{
+class CodePointKataTest {
+
     @Test
-    public void translateTheSecretMessage() throws Exception
-    {
+    void translateTheSecretMessage() throws Exception {
         var url = this.getClass().getClassLoader().getResource("codepoints.txt");
-        // Hint: Look at Paths.get(URI)
-        // Hint: Look at Files.lines(Path) which returns a Stream<String>
 
-        // Write the code necessary to read the file of code points into an ImmutableList of String
-        // The code points are space separated, and need to be converted into a String
-        // Blank lines will need to be converted to empty Strings
-        // Hint: Look at String.split(String)
-        // Hint: Look at new String(int[], int, int) or CodePointList.from(int...)
-        // Hint: Look at Collectors2.toImmutableList()
-        ImmutableList<String> list = null;
+        List<String> list = CodePointKata.urlToString(url);
 
-        // Write the code necessary to collect the list of Strings into a bag of characters
-        // Iterate over each String collecting it's characters into the characters Bag
-        // Hint: Look at CharAdapter.adapt(String)
-        // Hint: Look at CharAdapter.toBag() which returns a MutableCharBag.
-        // Hint: Look at ImmutableList.collect(Function)
-        // Hint: Look at ImmutableList.each(Procedure) or ImmutableList.injectInto(IV, Function2)
-        var characters = CharBags.mutable.empty();
+        var characters = CodePointKata.groupCharacters(list);
 
-        Assertions.assertTrue(this.expectedBagOfCharacters(characters));
+        assertEquals(characters, expectedBagOfCharacters());
 
-        // Output the list of strings to a file and read the secret message
-        // Hint: Look at Files.write() or FileWriter
+        System.out.println(String.join("", list));
     }
 
-    private boolean expectedBagOfCharacters(CharBag actual)
-    {
+    private CharBag expectedBagOfCharacters() {
         MutableCharBag expected = CharBags.mutable.empty();
         expected.addOccurrences(' ', 8);
         expected.addOccurrences('.', 1);
@@ -86,23 +70,18 @@ public class CodePointKataTest
         expected.addOccurrences('x', 1);
         expected.addOccurrences('y', 1);
         expected.addOccurrences('z', 1);
-        return expected.equals(actual);
+        return expected;
     }
 
     @Test
-    public void codePointsToHelloWorldHowAreYou()
-    {
-        Assertions.assertEquals(
-                "Hello World!",
-                this.convertCodePointsToString(72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33));
-        Assertions.assertEquals(
-                "How are you?",
-                this.convertCodePointsToString(72, 111, 119, 32, 97, 114, 101, 32, 121, 111, 117, 63));
+    void codePointsToHelloWorldHowAreYou() {
+        assertEquals(
+            "Hello World!",
+            CodePointKata.convertCodePointsToString(72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33, 32, 32));
+        assertEquals(
+            "How are you",
+            CodePointKata.convertCodePointsToString(32, 72, 111, 119, 32, 97, 114, 101, 32, 121, 111, 117, 32));
     }
 
-    private String convertCodePointsToString(int... codePoints)
-    {
-        // Hint: Look at new String(int[], int, int) or CodePointList.from(int...)
-        return "";
-    }
+
 }

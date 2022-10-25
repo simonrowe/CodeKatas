@@ -1,21 +1,21 @@
-# **What is the CodePoint Code Kata?**
+# **Adapted CodePoint Code Kata?**
+In this kata, every character has an associated code (a numerical value(int), and vice versa each code
+can be mapped to an individual character.
 
-The CodePoint code kata is simple.  There is a single test where you have to read a secret message 
-from a file called `codepoints.txt` and translate the file into an `ImmutableList` of `String` and 
-then collect all the characters into a `CharBag` so they can be counted to verify that you have translated 
-the message correctly.  You should finally write the `ImmutableList` of `String` to a file so you 
-can read the secret message.
+To find out what character is mapped to a code we can implement the following code:
+```java
+CodePointList.from(code).makeString()
+```
+To learn more about Characters and Code Points in Java, [here is a link](https://docs.oracle.com/javase/tutorial/i18n/text/characterClass.html).
 
-Here's an example of translating a comma separated `String` of code point values to a human readable `String`.
 
-#### **Secret Message:**
+In [CodePointKataTest](src/test/java/bnymellon/codekatas/codepointkata/CodePointKataTest.java)
+there are 2 tests (and we don't want you to touch the tests):
 
-72,101,108,108,111,32,87,111,114,108,100,33
+* translateTheSecretMessage() -> which reads from a file called `codepoints.txt` containing a bunch of codes. This test is currently
+throwing an Exception. We would like you to fix the code so that the test passes, plus decode the secret message. 
+n.b. If the first or last character is whitespace then we can ignore it.
 
-#### **Message Revealed:**
-
-Hello World!
-
-To learn more about Characters and Code Points in Java, [here is a link](https://docs.oracle.com/javase/tutorial/i18n/text/characterClass.html). 
-
+* codePointsToHelloWorldHowAreYou() -> is just a test to make sure we translate a bunch of codes to an expected message. 
+The test is currently failing, we'd like you to fix the implementation to make it pass.
 
